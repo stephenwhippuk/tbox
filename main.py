@@ -1,6 +1,8 @@
+#! python
 from pymongo import MongoClient
 from pprint import pprint
 import sys
+import pyperclip 
 
 def initDb():
     client=MongoClient('mongodb://localhost/')
@@ -10,7 +12,8 @@ def initDb():
 def onRootCommand(db, name):
     object = db.projects.find_one({"name": name})
     if object != None:
-        pprint(object.get("root")) 
+        pyperclip.copy('cd ' + object.get("root"))
+        pprint("root folder for " + name + " command copied to clipboard")
     else:
         pprint("project does not exist!")
 
